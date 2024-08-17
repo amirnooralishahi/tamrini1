@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{%load static%}
+{% block content %}
+<html lang="en">
+
+  <body>
+
+    <section class="container">
+      <h1 class="large text-primary">
+        Posts
+      </h1>
+      <p class="lead"><i class="fas fa-user"></i> Welcome to the community</p>
+
+      <div class="post-form">
+        <div class="post-form-header bg-primary">
+          <h3>Say Something...</h3>
+        </div>
+          <form  method="post" action="/blog/posts/" class="form my-1">
+        {% csrf_token %}
+        <input type="text" name="title" id="" placeholder='Title' required>
+        <textarea cols="30" rows="5" placeholder="Create a post" name="post_body" ></textarea>
+        <input type="submit" value="Submit" class="btn btn-dark my-1" />
+      </form>
+        <div class="posts">
+        {%for post in all_posts %}
+          {% include 'blog/_post.html' with post=post %}
+
+          {% endfor%}
+
+
+        </div>
+{#      pagination#}
+      <nav aria-label="...">
+  <ul class="pagination">
+
+    {{% if all_posts.has_previous %}
+
+           <li class="page-item">
+      <span class="page-link">
+          <a href="{% url 'posts' %}?page={{ all_posts.previous_page_number }}">
+          Previous
+      </a>
+      </span>
+
+
+      {% else %}
+       <li class="page-item disabled">
+      <span class="page-link">Previous</span>
+    </li>
+
+    {% endif %}
+    {% for i in all_posts.paginator.page_range %}
+        {% if all_posts.paginator.page.number == i  %}
+            <li class="page-item active">
+      <span class="page-link">
+        {{ i }}
+        <span class="sr-only">(current)</span>
+      </span>
+    {% else %}
+            <li class="page-item"><a class="page-link" href="{% url 'posts'%}?page={{ i }}">{{ i }}</a></li>
+        {% endif %}
+    {% endfor %}
+
+
+
+
+{#    <li class="page-item"><a class="page-link" href="#">3</a></li>#}
+{#  #}
+{#  #}
+    <li class="page-item">
+      <a class="page-link" href="#">Next</a>
+    </li>
+  </ul>
+</nav>
+{#      endpagination#}
+      </div>
+    </section>
+  </body>
+</html>
+{% endblock content %}
+
+

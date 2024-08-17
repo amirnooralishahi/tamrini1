@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block content %}
+
+  <body>
+
+    <section class="container">
+      <h1 class="large text-primary">
+        Developers
+      </h1>
+      <p class="lead">
+        <i class="fab fa-connectdevelop"></i> Browse and connect with developers
+      </p>
+      <div class="profiles">
+        {% for user_profile in object_list %}
+        <div class="profile bg-light">
+          <img
+            class="round-img"
+            src="{{ user_profile.picture.url }}"
+            alt=""
+          />
+
+          <div>
+            <h2>{{user_profile.first_name}}{{user_profile.last_name}}</h2>
+            <p>{{user_profile.job_title}} at microsoft</p>
+            <p>Seattle, WA</p>
+            <a href="{{user_profile.get_absolute_url}} " class="btn btn-primary">
+              View Profile
+
+            </a>
+          </div>
+
+
+          <ul>
+            <li class="text-primary"><i class="fas fa-check"></i> HTML</li>
+            <li class="text-primary"><i class="fas fa-check"></i> CSS</li>
+            <li class="text-primary">
+              <i class="fas fa-check"></i> JavaScript
+            </li>
+            <li class="text-primary"><i class="fas fa-check"></i> Python</li>
+          </ul>
+        </div>
+        {% endfor %}
+
+
+      </div>
+    </section>
+  </body>
+{% endblock content %}
+

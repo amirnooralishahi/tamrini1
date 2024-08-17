@@ -1,0 +1,40 @@
+ <div class="post bg-white my-1 p-1">
+            <div>
+              <a href="{%url 'profile_detail' post.author.slug %}">
+                <img
+                  class="round-img"
+                  src="{{ post.author.picture.url }}"
+                  alt=""
+                />
+                <h4>{{ post.author.user.username }}</h4>
+              </a>
+            </div>
+
+            <div>
+              <p class="my-1">
+               {{post.body}}
+              </p>
+                <form action="{% url 'like' post.slug  %}"method="post">
+                    {% csrf_token %}
+                    <input type="submit"value="like" class="btn">
+                    <i class="fas fa-thumbs-up"></i> <span>{{ post.likes_count }}</span>
+{#                    <button class="btn">#}
+
+{#                     </button>#}
+                </form>
+                <form action="{% url 'like' post.slug %}" method="post">
+                    {% csrf_token %}
+                    <input type="submit"value="dislike"  class="btn">
+                <i class="fas fa-thumbs-down">{{ post.dislikes_count }}</i>
+
+                </form>
+                <button class="btn">
+                    <a href="{% url 'add_favorite' post.slug%}">
+                        <i class="fas fa-star"></i>
+                    </a>
+              </button>
+              <a href="{% url 'post_detail' post.slug %}" class="btn btn-primary">
+                Discussion
+              </a>
+            </div>
+          </div>
